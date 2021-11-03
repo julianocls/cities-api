@@ -38,5 +38,5 @@ public class CityResource {
     public List<City> city(@PathVariable String name) {
         return repository.findByNameContainingIgnoreCase(name);
     }
-    
+
 }
