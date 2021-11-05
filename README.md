@@ -2,5 +2,8 @@
 
 Cities-api é uma api para consulta de cidades desenvolvida no bootcampo TQI na DIO.
 
-* Consultas disponíveis:
->>>> Cidades
+Consultas disponíveis:
+* Cidades;
+* Estados;
+* Paises;
+* Distancia entre cidades.
