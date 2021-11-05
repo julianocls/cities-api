@@ -26,18 +26,23 @@ public class CountryResource {
     }
 
     @GetMapping("/name/{name}")
-    public Country country(@PathVariable String name) {
-        return repository.findByPortugueseNameIgnoreCase(name);
+    public ResponseEntity<Country> country(@PathVariable String name) {
+        Optional<Country> optional = repository.findByPortugueseNameIgnoreCase(name);
+        return optional.map(
+                p -> ResponseEntity.ok().body(p)
+        ).orElseGet(
+                () -> ResponseEntity.notFound().build()
+        );
     }
 
     @GetMapping("/id/{id}")
     public ResponseEntity<Country> findById(@PathVariable Long id) {
         Optional<Country> optional = repository.findById(id);
-
-        if (optional.isPresent()) {
-            return ResponseEntity.ok().body(optional.get());
-        }
-        return ResponseEntity.notFound().build();
+        return optional.map(
+                p -> ResponseEntity.ok().body(p)
+        ).orElseGet(
+                () -> ResponseEntity.notFound().build()
+        );
     }
 
 }

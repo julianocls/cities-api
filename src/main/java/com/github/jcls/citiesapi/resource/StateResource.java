@@ -19,19 +19,36 @@ public class StateResource {
     }
 
     @GetMapping
-    public List<State> states() {
-        return repository.findAll();
+    public ResponseEntity<List<State>> states() {
+        Optional<List<State>> optional = Optional.of(repository.findAll());
+
+        return optional.map(
+                p -> ResponseEntity.ok().body(p)
+        ).orElseGet(
+                () -> ResponseEntity.notFound().build()
+        );
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/name/{name}")
+    public ResponseEntity<List<State>> findById(@PathVariable String name) {
+        Optional<List<State>> optional = repository.findByNameContainingIgnoreCase(name);
+
+        return optional.map(
+                p -> ResponseEntity.ok().body(p)
+        ).orElseGet(
+                () -> ResponseEntity.notFound().build()
+        );
+    }
+
+    @GetMapping("/id/{id}")
     public ResponseEntity<State> findById(@PathVariable Long id) {
         Optional<State> optional = repository.findById(id);
 
-        if (optional.isPresent()) {
-            return ResponseEntity.ok().body(optional.get());
-        }
-
-        return ResponseEntity.notFound().build();
+        return optional.map(
+                p -> ResponseEntity.ok().body(p)
+        ).orElseGet(
+                () -> ResponseEntity.notFound().build()
+        );
     }
 
 }
