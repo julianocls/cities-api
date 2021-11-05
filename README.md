@@ -6,4 +6,4 @@ Consultas disponíveis:
 * Cidades;
 * Estados;
 * Paises;
-* Distancia entre cidades.
+* Distância entre cidades.
