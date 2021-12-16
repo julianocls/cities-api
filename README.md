@@ -7,3 +7,9 @@ Consultas disponíveis:
 * Estados;
 * Paises;
 * Distância entre cidades.
+
+Principais Tecnologias:
+* Spring Data
+* Spring Boot
+* Spring Security
+* Swagger2
