@@ -3,6 +3,9 @@ package com.github.jcls.citiesapi.resource;
 import com.github.jcls.citiesapi.domain.State;
 import com.github.jcls.citiesapi.repository.StateRepository;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,7 +44,13 @@ public class StateResource {
     }
 
     @GetMapping("/id/{id}")
-    public ResponseEntity<State> findById(@PathVariable Long id) {
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<State> findById(@PathVariable Long id,
+                                          @AuthenticationPrincipal UserDetails userDetails) {
+
+        System.out.println("Usuario logado: " + userDetails.getUsername());
+        System.out.println("Roles Usuario logado: " + userDetails.getAuthorities());
+
         Optional<State> optional = repository.findById(id);
 
         return optional.map(

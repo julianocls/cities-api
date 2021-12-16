@@ -19,7 +19,7 @@ public class CityResource {
 
     private final CityRepository repository;
 
-    public CityResource(final CityRepository repository) {
+    public CityResource(CityRepository repository) {
         this.repository = repository;
     }
 
